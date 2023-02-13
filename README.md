@@ -3,6 +3,7 @@
 1. [x] PHP 8.1 minimum.
 2. [x] Composer.
 4. [x] Enable cURL PHP extension
+4. [x] Node.js v16.17.1
 
 ### Setup project in localhost
 - Project url in github `https://github.com/pk70/employee-project-management.git`
@@ -11,8 +12,10 @@
 - Run command `composer update`
 - Make sure .env file is in root folder or rename the .env.example
 - In .env file DB_DATABASE=`your db name` DB_USERNAME=`your db user name` DB_PASSWORD=`you db password`
+- Run command `php artisan migrate` for generating db table
 - Run command `php artisan key:generate` for generating encrypted key
-- Run command ` php artisan db:seed --class=AdminSeeder` for creating admin user with password(Default user:`admin@admin.com`,password:`admin@admin.com`)
+- Run command `php artisan db:seed --class=AdminSeeder` for creating admin user with password(Default user:`admin@admin.com`,password:`admin@admin.com`)
+- Run command `npm install && npm run dev` for generating db table
 - Run command `php artisan serve` you will see url `http://127.0.0.1:8000/`
 
 ### Live link
@@ -26,21 +29,7 @@
 - You can also download the result as csv format by clicking `Download calculated Csv` button.
 - The input.csv file store inside storage folder you can change it manually also (rootdirectory/storage/).
 
-### Folder structure
-- Inside root folder/storage folder input and output csv file stored.
-- Inside root folder/routes folder there is `web.php` file, where all routes were written.
-- Inside root folder/app/Http/Controllers folder where all php classes controller were written.
-- Inside root folder/app/Services folder where all php classes as services were written.
-- Inside root folder/tests/Feature folder where all php unit test class were written.
-
-### PHP Unit test
-- Run command  `./vendor/bin/phpunit` in project terminal for unit testing result.
-- For specific test  `./vendor/bin/phpunit --filter HomePageTest` in project terminal for unit testing result.
-- The were 3 feature test class 
-1.HomePageTest where two methood for testing `test_landing_page,test_download_page`(landing page and download csv testing)
-2.CalculationTest where one method for testing `test_calculation_by_csv_array` (existing csv file get calculated expected output testing)
-3.InputFileTest where one method for testing `test_input_file_exists` (input.csv existing testing)
-
 ### Technology used
-- Laravel framework version 8
+- Laravel Framework 9.51.0
+- MySql 8.0.25
 
