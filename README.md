@@ -1,66 +1,46 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Homework assignment
+## Requirements
+1. [x] PHP 8.1 minimum.
+2. [x] Composer.
+4. [x] Enable cURL PHP extension
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+### Setup project in localhost
+- Project url in github `https://github.com/pk70/employee-project-management.git`
+- Download file from git or `git clone https://github.com/pk70/employee-project-management.git`
+- Go to project folder and open terminal
+- Run command `composer update`
+- Make sure .env file is in root folder or rename the .env.example
+- In .env file DB_DATABASE=`your db name` DB_USERNAME=`your db user name` DB_PASSWORD=`you db password`
+- Run command `php artisan key:generate` for generating encrypted key
+- Run command ` php artisan db:seed --class=AdminSeeder` for creating admin user with password(Default user:`admin@admin.com`,password:`admin@admin.com`)
+- Run command `php artisan serve` you will see url `http://127.0.0.1:8000/`
 
-## About Laravel
+### Live link
+- http://commission-calculation.discovernanosoft.com/
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### How to operate the project/software
+- Open url in browser (`http://127.0.0.1:8000/`)
+- Click the `Calculation with existing file` you will get the expected result
+- Or you can upload a csv file by choosing csv file input field (upload expected formated file) and then click upload (please upload csv file as expected format)
+- After uploading latest file click the button `Calculation with latest uploaded file` you will get the expected result
+- You can also download the result as csv format by clicking `Download calculated Csv` button.
+- The input.csv file store inside storage folder you can change it manually also (rootdirectory/storage/).
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### Folder structure
+- Inside root folder/storage folder input and output csv file stored.
+- Inside root folder/routes folder there is `web.php` file, where all routes were written.
+- Inside root folder/app/Http/Controllers folder where all php classes controller were written.
+- Inside root folder/app/Services folder where all php classes as services were written.
+- Inside root folder/tests/Feature folder where all php unit test class were written.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### PHP Unit test
+- Run command  `./vendor/bin/phpunit` in project terminal for unit testing result.
+- For specific test  `./vendor/bin/phpunit --filter HomePageTest` in project terminal for unit testing result.
+- The were 3 feature test class 
+1.HomePageTest where two methood for testing `test_landing_page,test_download_page`(landing page and download csv testing)
+2.CalculationTest where one method for testing `test_calculation_by_csv_array` (existing csv file get calculated expected output testing)
+3.InputFileTest where one method for testing `test_input_file_exists` (input.csv existing testing)
 
-## Learning Laravel
+### Technology used
+- Laravel framework version 8
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
-
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
-
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
-
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
