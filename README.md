@@ -15,7 +15,7 @@
 - Run command `php artisan migrate` for generating db table
 - Run command `php artisan key:generate` for generating encrypted key
 - Run command `php artisan db:seed --class=AdminSeeder` for creating admin user with password(Default user:`admin@admin.com`,password:`admin@admin.com`)
-- Run command `npm install && npm run dev` for generating db table
+- Run command `npm install && npm run dev`
 - Run command `php artisan serve` you will see url `http://127.0.0.1:8000/`
 
 ### Live link
