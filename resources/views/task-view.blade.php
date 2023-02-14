@@ -166,13 +166,9 @@
                                 <label for="task_name" class="col-sm-2 col-form-label">Task Attachment</label>
                                 <div class="col-sm-4">
                                     @foreach ($task->taskInfo as $item)
-                                        @if ($item->file_path != null)
-                                            @php
-                                                $file_name = explode('/', $item->file_path);
-                                            @endphp
-
+                                        @if ($item->file_name != null)
                                             <a
-                                                href="{{ route('admin.task.download', ['name' => $file_name[1]]) }}">Download</a>
+                                                href="{{ URL::to('/download/')."/".$item->file_name }}">Download</a>
                                         @endif
                                     @endforeach
 

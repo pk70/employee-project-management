@@ -2,16 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\View\View;
+use App\Http\Controllers\Controller;
 
 class HomeController extends Controller
 {
-    public function index()
+    public function index():view
     {
-        if(Auth::guard('web')->check()){
-            return view('layouts.dashboard-content');
-        }
       return view('welcome');
     }
 }

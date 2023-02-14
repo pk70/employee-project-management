@@ -19,6 +19,7 @@ class TaskInfo extends Model
         'id_tasks',
         'location_information',
         'file_path',
+        'file_name',
     ];
 
     public $timestamps=true;

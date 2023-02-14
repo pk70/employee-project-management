@@ -19,15 +19,12 @@
 - Run command `php artisan serve` you will see url `http://127.0.0.1:8000/`
 
 ### Live link
-- http://commission-calculation.discovernanosoft.com/
+- https://devstation.discovernanosoft.com/
 
 ### How to operate the project/software
 - Open url in browser (`http://127.0.0.1:8000/`)
-- Click the `Calculation with existing file` you will get the expected result
-- Or you can upload a csv file by choosing csv file input field (upload expected formated file) and then click upload (please upload csv file as expected format)
-- After uploading latest file click the button `Calculation with latest uploaded file` you will get the expected result
-- You can also download the result as csv format by clicking `Download calculated Csv` button.
-- The input.csv file store inside storage folder you can change it manually also (rootdirectory/storage/).
+- In first landing page their are login and registration link right side top
+- Login is for all user `admin or employee` and registration is for employee only
 
 ### Technology used
 - Laravel Framework 9.51.0

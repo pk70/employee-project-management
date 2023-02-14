@@ -14,7 +14,7 @@
           <!-- small box -->
           <div class="small-box bg-warning">
             <div class="inner">
-              <h3>{{ \App\Models\User::count() }}</h3>
+              <h3>{{ \App\Models\User::where('type','employee')->count() }}</h3>
 
               <p>User Registrations</p>
             </div>

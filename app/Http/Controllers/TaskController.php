@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Serializable;
 use Carbon\Carbon;
 use App\Models\Task;
+use Nette\Utils\Json;
 use App\Models\Project;
 use App\Models\TaskInfo;
 use Illuminate\View\View;
@@ -13,9 +14,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Response;
 use Stevebauman\Location\Facades\Location;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class TaskController extends Controller
 {
@@ -24,8 +27,11 @@ class TaskController extends Controller
      */
     public function index(): view
     {
-
-        $tasks = Task::with(['taskHistory', 'taskInfo'])->get();
+        if (Auth::user()->type == 'admin') {
+            $tasks = Task::with(['taskHistory', 'taskInfo'])->get();
+        } else {
+            $tasks = Task::with(['taskHistory', 'taskInfo'])->where('created_by', Auth::user()->id)->get();
+        }
 
         return view('task')->with(['tasks' => $tasks]);
     }
@@ -85,14 +91,11 @@ class TaskController extends Controller
         return Redirect::route('admin.project')->with('status', 'updated');
     }
 
-
     /**
      * create project.
      */
     public function store(Request $request): RedirectResponse|string
     {
-
-
         $validated = $request->validate([
             'task_name' => 'required|string|max:255',
             'id_project' => 'required|int',
@@ -112,25 +115,27 @@ class TaskController extends Controller
             if ($request->has('task_image')) {
                 $file = $request->file('task_image');
                 $image_name = $task->id . "_" . $file->getClientOriginalName();
-                $file->move(storage_path(),  $image_name);
+                $file->move(public_path(),  $image_name);
             }
 
             TaskInfo::create([
                 'id_tasks' => $task->id,
-                'file_path' => ($image_name != null ? storage_path() . "/" . $image_name : null),
-                'location_information' => $this->getUserLocation()
+                'file_path' => ($image_name != null ? public_path() . "/" . $image_name : null),
+                'location_information' => $this->getUserLocation(),
+                'file_name' => $image_name
             ]);
 
             return Redirect::route('admin.task')->with('status', 'created');
         } catch (\Exception $th) {
             return $th->getMessage();
-            unlink(storage_path() . "/" . $image_name);
+            unlink(public_path() . "/" . $image_name);
         }
     }
 
     /**
      * Display the user's profile form.
-     */
+    */
+
     public function start($id): RedirectResponse
     {
         TaskHistory::create([
@@ -138,66 +143,68 @@ class TaskController extends Controller
             'task_start' => Carbon::now(),
             'status' => 1
         ]);
-
         return Redirect::route('admin.task.view', ['id' => $id]);
     }
+
     /**
      * Display the user's profile form.
-     */
+    */
+
     public function stop($id): RedirectResponse
     {
         TaskHistory::where('id_tasks', $id)->update([
             'task_end' => Carbon::now(),
             'status' => 2
         ]);
-
         return Redirect::route('admin.task.view', ['id' => $id]);
     }
+
     /**
      * Display the user's profile form.
-     */
+    */
+
     public function breakStart($id): RedirectResponse
     {
-
         TaskHistory::where('id_tasks', $id)->update([
             'break' => 'yes',
             'break_start' => Carbon::now(),
         ]);
-
         return Redirect::route('admin.task.view', ['id' => $id]);
     }
+
     /**
      * Display the user's profile form.
-     */
+    */
+
     public function breakEnd($id): RedirectResponse
     {
-
         TaskHistory::where('id_tasks', $id)
             ->where('break', 'yes')->update([
                 'break' => 'resume',
                 'break_end' => Carbon::now(),
             ]);
-
         return Redirect::route('admin.task.view', ['id' => $id]);
     }
 
-    public function getUserLocation()
+    /**
+     * Get user information.
+    */
+
+    public function getUserLocation(): String
     {
-        $ip = '103.239.147.187'; //For static IP address get
-        //$ip = request()->ip(); //For static IP address get
+        //$ip = '103.239.147.187'; //For static IP address get
+        $ip = request()->ip(); //For static IP address get
         $data = Location::get($ip);
         return serialize($data);
     }
 
-    public function getDownload($filname)
+    /**
+     * Download.
+    */
+
+    public function getDownload($filname):BinaryFileResponse
     {
-
-        $filepath = storage_path() . "/" . $filname;
-
-        $headers = array(
-            'Content-Type: application/*',
-        );
-
-        return response()->download($filepath, $filname, $headers);
+        $filepath = public_path($filname);
+        return response()->download($filepath, $filname);
     }
 }

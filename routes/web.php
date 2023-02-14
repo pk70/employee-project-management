@@ -42,7 +42,7 @@ Route::middleware('admin')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::get('/task', [App\Http\Controllers\TaskController::class, 'index'])->name('admin.task');
     Route::get('/task-view/{id}', [App\Http\Controllers\TaskController::class, 'view'])->name('admin.task.view');
-    Route::get('/download/{name}', [App\Http\Controllers\TaskController::class, 'getDownload'])->name('admin.task.download');
+
 });
 Route::middleware(['employee'])->group(function () {
     Route::get('/task-create', [App\Http\Controllers\TaskController::class, 'create'])->name('admin.task.create');
@@ -54,4 +54,5 @@ Route::middleware(['employee'])->group(function () {
     Route::get('/task-break-start/{id}', [App\Http\Controllers\TaskController::class, 'breakStart'])->name('admin.task.breakStart');
     Route::get('/task-break-end/{id}', [App\Http\Controllers\TaskController::class, 'breakEnd'])->name('admin.task.breakEnd');
 });
+Route::get('/download/{name}', [App\Http\Controllers\TaskController::class, 'getDownload'])->name('admin.task.download');
 require __DIR__ . '/auth.php';
